@@ -1,0 +1,30 @@
+import { Outlet, Navigate} from 'react-router-dom';
+import Header from '../components/header'
+import Footer from '../components/footer'
+import {useAuth} from '../hooks/useAuth'
+
+const RutaProtegida = () => {
+
+    const { auth, cargando } = useAuth()
+    if(cargando) return 'cargando...'
+
+    return(
+        <>
+            
+            <Header/>
+
+                {auth?._id ? (
+                    <main className='container mx-auto mt-20'>
+
+                        <Outlet/>
+                    
+                    </main>
+                
+                ) : <Navigate to="/" /> }
+
+            <Footer/>
+        </>
+    )
+}
+
+export default RutaProtegida
